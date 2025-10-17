@@ -108,6 +108,30 @@ public class OrganizationService {
         organizationRepository.deleteById(id);
     }
 
+    @Transactional
+    public boolean deleteByFullName(String fullName){
+        Optional<Organization> orgWithFullName = organizationRepository.findAll().stream()
+                .filter(o -> o.getFullName() != null && o.getFullName().equals(fullName))
+                .findFirst();
+
+        orgWithFullName.ifPresent(organizationRepository::delete);
+        return orgWithFullName.isPresent();
+    }
+
+    public Organization getByMinEmployees() {
+        return organizationRepository.findAll().stream()
+                .min(Comparator.comparingInt(Organization::getEmployeesCount))
+                .orElseThrow(() -> new NoSuchElementException("No organizations found"));
+    }
+
+    public Organization getByMaxFullName(){
+        return organizationRepository.findAll().stream()
+                .max(Comparator.comparing(
+                        Organization::getFullName,
+                        Comparator.nullsFirst(String::compareToIgnoreCase)))
+                .orElseThrow(() -> new NoSuchElementException("No organization found"));
+    }
+
     private Sort buildSort(String sortParam){
         if (sortParam == null || sortParam.isBlank()){
             return Sort.unsorted();

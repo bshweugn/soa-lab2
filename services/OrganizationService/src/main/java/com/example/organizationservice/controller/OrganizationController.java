@@ -87,4 +87,33 @@ public class OrganizationController {
         }
     }
 
+    @DeleteMapping("/by/fullname")
+    public ResponseEntity<Void> deleteByFullName(@RequestParam String fullName){
+        boolean deletedOrg = organizationService.deleteByFullName(fullName);
+        if(deletedOrg){
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @GetMapping("/by/min-employees")
+    public ResponseEntity<Organization> getByMinEmployees(){
+        try{
+            Organization org = organizationService.getByMinEmployees();
+            return ResponseEntity.ok(org);
+        }catch (NoSuchElementException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @GetMapping("/by/max-fullname")
+    public ResponseEntity<Organization> getByMaxFullName(){
+        try{
+            Organization org = organizationService.getByMaxFullName();
+            return ResponseEntity.ok(org);
+        }catch (NoSuchElementException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
