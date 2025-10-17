@@ -2,6 +2,7 @@ package com.example.organizationservice.controller;
 
 import com.example.organizationservice.dto.OrganizationDto;
 import com.example.organizationservice.dto.PagedResponse;
+import com.example.organizationservice.dto.SearchRequest;
 import com.example.organizationservice.model.Organization;
 import com.example.organizationservice.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +24,21 @@ public class OrganizationController {
 
     private final OrganizationService organizationService;
 
-    @GetMapping
-    public ResponseEntity<PagedResponse<Organization>> getAllFlats(
-            @RequestParam Map<String, String> allParams,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size){
-        Page<Organization> organizationsPage = organizationService.getAllOrganizations(allParams, page, size);
+    @PostMapping("/search")
+    public ResponseEntity<PagedResponse<Organization>> searchOrganizations(
+            @RequestBody SearchRequest searchRequest){
+        Map<String, String> filters = searchRequest.getFilters();
+        String sortParam = null;
+        if(searchRequest.getSort() != null && !searchRequest.getSort().isEmpty()){
+            sortParam = String.join(",", searchRequest.getSort());
+        }
+        filters.put("sort", sortParam);
+
+        Page<Organization> organizationsPage = organizationService.getAllOrganizations(
+                filters,
+                searchRequest.getPage(),
+                searchRequest.getSize()
+        );
 
         PagedResponse<Organization> response = PagedResponse.<Organization>builder()
                 .content(organizationsPage.getContent())
