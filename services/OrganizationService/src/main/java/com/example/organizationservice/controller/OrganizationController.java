@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/organizations")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrganizationController {
 
     private final OrganizationService organizationService;

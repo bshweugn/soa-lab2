@@ -1,0 +1,6 @@
+create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGSimpleDataSource --restype javax.sql.DataSource --property user=s368274:password=goodstory87:DatabaseName=studs:ServerName=localhost:PortNumber=5432 orgdirectory_service_pool
+
+create-jdbc-resource --connectionpoolid=orgdirectory_service_pool jdbc/orgdirectory_service
+
+list-jdbc-connection-pools
+list-jdbc-resources
