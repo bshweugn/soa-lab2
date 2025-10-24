@@ -59,3 +59,52 @@ $PAYARA_HOME/bin/asadmin deploy target/{название_вар_файла}.war
 ```
 $PAYARA_HOME/bin/asadmin redeploy target/{название_вар_файла}.war
 ```
+
+## Деплой на гелиос
+
+1. На гелиос места мало поэтому не получится установить там полноценный payara server. Поэтому лучше всего скачать туда payara-micro 6 версии
+
+```
+wget https://repo1.maven.org/maven2/fish/payara/distributions/payara-micro/6.2024.10/payara-micro-6.2024.3.jar
+
+```
+2. Собираем war файл нашего проекта и копируем его на гелиос
+
+3. Для успешного запуска payara-micro необходимо созадть jdbc-connection-pool и jdbc ресурс. Для этого создадим файл db-configuration-helios.asadmin. Создадим в нём пул и в проперти укажем, данные для  подключения к БД гелиоса
+
+```
+create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGSimpleDataSource --restype javax.sql.DataSource --property user={ваш_номер_ису}:password={ваш_пароль_из_pgpass}:DatabaseName=studs:ServerName=pg:PortNumber=5432 orgdirectory_service_pool
+
+create-jdbc-resource --connectionpoolid=orgdirectory_service_pool jdbc/orgdirectory_service
+
+list-jdbc-connection-pools
+list-jdbc-resources
+
+```
+4. После этого необходимо скопировать данный файл на гелиос, а также необходимо скопировать драйвер используемой БД (postgres).
+
+```
+scp -P 2222 db-config-helios.asadmin s368274@helios.cs.ifmo.ru:~/payara
+scp -P 2222 postgresql-42.7.3.jar s368274@helios.cs.ifmo.ru:~/payara
+```
+
+5. При развертывании инстанса может не хватить выделенного места перед запуском лучше всего расширить metaspace
+```
+export _JAVA_OPTIONS="-XX:MaxHeapSize=1G -XX:MaxMetaspaceSize=512m"
+```
+
+6. Теперь можно запустить payara-micro с помощью команды:
+```
+java -jar payara-micro-6.2024.3.jar  \
+    --nocluster \
+    --addlibs payara/postgresql-42.7.3.jar \
+    --postbootcommandfile payara/db-config-helios.asadmin \
+    --deploy OrgDirectoryService-0.0.1-SNAPSHOT.war \
+    --port 8080
+
+```
+
+7. Последним шагом необходимо прокинуть порты
+```
+ssh -p 2222 s368274@helios.cs.ifmo.ru -L 8080:localhost:8080
+```
