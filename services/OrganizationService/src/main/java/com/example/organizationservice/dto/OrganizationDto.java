@@ -22,7 +22,7 @@ public class OrganizationDto {
     private String fullName;
     private int employeesCount;
     private OrganizationType type;
-    private Address offiialAddress;
+    private Address officialAddress;
 
     public Organization toEntity(){
         var org = new Organization();
@@ -34,7 +34,7 @@ public class OrganizationDto {
         org.setFullName(fullName);
         org.setEmployeesCount(employeesCount);
         org.setType(type);
-        org.setOfficialAddress(offiialAddress);
+        org.setOfficialAddress(officialAddress);
 
         return org;
     }

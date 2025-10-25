@@ -84,8 +84,8 @@ list-jdbc-resources
 4. После этого необходимо скопировать данный файл на гелиос, а также необходимо скопировать драйвер используемой БД (postgres).
 
 ```
-scp -P 2222 db-config-helios.asadmin s368274@helios.cs.ifmo.ru:~/payara
-scp -P 2222 postgresql-42.7.3.jar s368274@helios.cs.ifmo.ru:~/payara
+scp -P 2222 db-configuration-helios.asadmin s368274@helios.cs.ifmo.ru:~/payara
+scp -P 2222 postgresql-42.7.8.jar s368274@helios.cs.ifmo.ru:~/payara
 ```
 
 5. При развертывании инстанса может не хватить выделенного места перед запуском лучше всего расширить metaspace
@@ -97,11 +97,11 @@ export _JAVA_OPTIONS="-XX:MaxHeapSize=1G -XX:MaxMetaspaceSize=512m"
 ```
 java -jar payara-micro-6.2024.3.jar  \
     --nocluster \
-    --addlibs payara/postgresql-42.7.3.jar \
-    --postbootcommandfile payara/db-config-helios.asadmin \
+    --addlibs payara/postgresql-42.7.8.jar \
+    --postbootcommandfile payara/db-configuration-helios.asadmin \
     --deploy OrgDirectoryService-0.0.1-SNAPSHOT.war \
-    --port 8080
-
+    --port 8080 \
+    --sslPort 23223
 ```
 
 7. Последним шагом необходимо прокинуть порты
