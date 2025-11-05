@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Acme Corp",
+    "fullName": "Acme Corporation",
+    "type": "COMMERCIAL",
+    "employeesCount": 120,
+    "annualTurnover": 5000000,
+    "coordinates": { "x": 12.34, "y": 56.78 },
+    "officialAddress": { "street": "Main St 1", "zipCode": "12345", "town": { "name": "Metropolis", "x": 0, "y": 0, "z": 0 } }
+  },
+  {
+    "id": 2,
+    "name": "City Health",
+    "fullName": "City Health Services",
+    "type": "GOVERNMENT",
+    "employeesCount": 450,
+    "annualTurnover": 0,
+    "coordinates": { "x": 98.76, "y": 54.32 },
+    "officialAddress": { "street": "Health Ave 10", "zipCode": "54321", "town": { "name": "Urbantown", "x": 0, "y": 0, "z": 0 } }
+  },
+  {
+    "id": 3,
+    "name": "Helping Hands",
+    "fullName": "Helping Hands Trust",
+    "type": "TRUST",
+    "employeesCount": 23,
+    "annualTurnover": 200000,
+    "coordinates": { "x": 11.11, "y": 22.22 },
+    "officialAddress": { "street": "Charity Rd 5", "zipCode": "10101", "town": { "name": "Smallville", "x": 0, "y": 0, "z": 0 } }
+  }
+]

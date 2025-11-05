@@ -1,0 +1,11 @@
+services:
+  agency_database:
+    image: postgres:18
+    container_name: orgdiretory_db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: goodstory87
+      POSTGRES_USER: s368274
+      POSTGRES_DB: studs
