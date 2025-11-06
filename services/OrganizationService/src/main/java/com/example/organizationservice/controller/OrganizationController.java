@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -61,7 +61,7 @@ public class OrganizationController {
     }
 
     @PostMapping
-    public ResponseEntity<Organization> createOrganization(@RequestBody OrganizationDto organization) {
+    public ResponseEntity<Organization> createOrganization(@Valid @RequestBody OrganizationDto organization) {
         Organization createdOrg = organizationService.createOrganization(organization.toEntity());
         return ResponseEntity.status(HttpStatus.CREATED).body(createdOrg);
     }

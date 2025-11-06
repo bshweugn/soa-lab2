@@ -11,17 +11,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import jakarta.validation.Valid;
 import java.util.*;
 
 @Service
+@Validated
 @RequiredArgsConstructor
 public class OrganizationService {
 
     private final OrganizationRepository organizationRepository;
 
     @Transactional
-    public Organization createOrganization(Organization organization){
+    public Organization createOrganization(@Valid Organization organization){
         return organizationRepository.save(organization);
     }
 
@@ -36,7 +39,7 @@ public class OrganizationService {
     }
 
     @Transactional
-    public Organization updateOrganization(Long id, Organization orgDetails){
+    public Organization updateOrganization(Long id, @Valid Organization orgDetails){
         Organization organization = organizationRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Organization not found by id: " + id));
 

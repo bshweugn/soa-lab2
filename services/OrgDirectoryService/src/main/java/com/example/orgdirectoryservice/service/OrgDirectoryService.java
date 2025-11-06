@@ -26,8 +26,8 @@ public class OrgDirectoryService {
 
     public List<OrganizationDto> findByTurnover(MinMaxTurnoverDto turnoverDto){
         Map<String, String> filters = Map.of(
-                "minTurnover", String.valueOf(turnoverDto.getMinTurnover()),
-                "maxTurnover", String.valueOf(turnoverDto.getMaxTurnover())
+                "annualTurnoverMin", String.valueOf(turnoverDto.getMinTurnover()),
+                "annualTurnoverMax", String.valueOf(turnoverDto.getMaxTurnover())
         );
         var request = Map.of("filters", filters, "page", 0, "size", 100);
         return client.searchOrganizations(request);
