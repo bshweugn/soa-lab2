@@ -11,17 +11,48 @@ const empty = {
 }
 
 export default function OrganizationForm({ initial = null, onCancel, onSubmit }) {
-  const [form, setForm] = useState(initial || empty)
+  const [form, setForm] = useState(() => {
+    if (!initial) return empty
+    return {
+      ...empty,
+      ...initial,
+      coordinates: { ...empty.coordinates, ...initial.coordinates },
+      officialAddress: {
+        ...empty.officialAddress,
+        ...initial.officialAddress,
+        town: { ...empty.officialAddress.town, ...initial.officialAddress?.town }
+      }
+    }
+  })
 
-  useEffect(() => setForm(initial || empty), [initial])
+  useEffect(() => {
+    if (!initial) {
+      setForm(empty)
+      return
+    }
+    setForm({
+      ...empty,
+      ...initial,
+      coordinates: { ...empty.coordinates, ...initial.coordinates },
+      officialAddress: {
+        ...empty.officialAddress,
+        ...initial.officialAddress,
+        town: { ...empty.officialAddress.town, ...initial.officialAddress?.town }
+      }
+    })
+  }, [initial])
 
   const setPath = (path, value) => {
     const next = JSON.parse(JSON.stringify(form))
     const parts = path.split('.')
     let cur = next
     parts.forEach((p, i) => {
-      if (i === parts.length - 1) cur[p] = value
-      else cur = cur[p]
+      if (i === parts.length - 1) {
+        cur[p] = value
+      } else {
+        cur[p] = cur[p] || {}
+        cur = cur[p]
+      }
     })
     setForm(next)
   }
@@ -49,8 +80,9 @@ export default function OrganizationForm({ initial = null, onCancel, onSubmit })
           <span className="mb-1">Тип</span>
           <select className="px-3 py-2 border border-gray-200 rounded" value={form.type} onChange={(e) => setPath('type', e.target.value)}>
             <option>COMMERCIAL</option>
+            <option>PUBLIC</option>
             <option>GOVERNMENT</option>
-            <option>TRUST</option>
+            <option>PRIVATE_LIMITED_COMPANY</option>
           </select>
         </label>
         <label className="flex flex-col text-sm">

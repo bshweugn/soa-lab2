@@ -15,7 +15,7 @@ function App() {
     setLoading(true)
     try {
       const res = await api.search({ page: 0, size: 10 })
-      setItems(res?.content || [])
+      setItems(res || [])
     } catch (e) {
       console.error(e)
       setError(e)
@@ -44,7 +44,7 @@ function App() {
   }
 
   const handleDelete = async (org) => {
-    if (!window.confirm('Delete ' + org.name + '?')) return
+    if (!window.confirm('Удалить организацию ' + org.name + '?')) return
     try {
       if (org.id) await api.delete(org.id)
       else if (org.fullName) await api.deleteByFullName(org.fullName)
@@ -56,7 +56,7 @@ function App() {
     setLoading(true)
     try {
       const res = await api.search(params)
-      setItems(res?.content || [])
+      setItems(res || [])
     } catch (e) {
       setError(new Error('Search failed: ' + (e.message || e)))
     } finally {
