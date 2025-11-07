@@ -43,7 +43,7 @@ public class Organization {
     private LocalDateTime creationDate; // генерируется
 
 
-    @Min(value = 1, message = "Number of rooms must be grater than 0")
+    @Min(value = 1, message = "Annual turnover must be grater than 0")
     private long annualTurnover;
 
     @NotNull(message = "Full name cannot be null")

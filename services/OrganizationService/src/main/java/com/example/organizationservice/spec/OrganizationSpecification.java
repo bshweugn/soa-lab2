@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Objects;
 
 public class OrganizationSpecification {
 
@@ -23,140 +24,169 @@ public class OrganizationSpecification {
             "coordinatesXMin", "coordinatesXMax",
             "coordinatesYMin", "coordinatesYMax",
             "zipCode", "townName"
-
     );
 
     public static Specification<Organization> filter(Map<String, String> filters) {
         return (root, query, criteriaBuilder) -> {
 
-            if(filters == null || filters.isEmpty()){
+            if (filters == null || filters.isEmpty()) {
                 return criteriaBuilder.conjunction();
             }
 
-
-
-            for(String rawKey : filters.keySet()) {
-               if(rawKey == null){
-                   return criteriaBuilder.disjunction();
-               }
-
-               if("sort".equalsIgnoreCase(rawKey)){
-                   continue;
-               }
-
-               if(!ALLOWED_KEYS.contains(rawKey)){
-                   return criteriaBuilder.disjunction();
-               }
+            for (String rawKey : filters.keySet()) {
+                if (rawKey == null) {
+                    return criteriaBuilder.disjunction();
+                }
+                if ("sort".equalsIgnoreCase(rawKey)) {
+                    continue;
+                }
+                if (!ALLOWED_KEYS.contains(rawKey)) {
+                    return criteriaBuilder.disjunction();
+                }
             }
 
-            boolean allBlank = filters.values().stream().allMatch(v -> v == null || v.isBlank());
-            if(allBlank){
+            boolean allNull = filters.values().stream().allMatch(Objects::isNull);
+            if (allNull) {
                 return criteriaBuilder.conjunction();
             }
 
             List<Predicate> predicateList = new ArrayList<>();
 
-            if(hasText(filters.get("name"))){
-                predicateList.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + filters.get("name").toLowerCase() + "%"));
+            if (filters.get("name") != null) {
+                String raw = filters.get("name");
+                String pattern;
+                if (raw.trim().isEmpty() && !raw.isEmpty()) {
+                    pattern = "%" + raw + "%";
+                    predicateList.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), pattern));
+                } else {
+                    String norm = raw.trim().toLowerCase();
+                    if (!norm.isEmpty()) {
+                        pattern = "%" + norm + "%";
+                        predicateList.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), pattern));
+                    }
+                }
             }
 
-            if (hasText(filters.get("fullName"))) {
-                predicateList.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("fullName")), "%" + filters.get("fullName").toLowerCase() + "%"));
+            if (filters.get("fullName") != null) {
+                String raw = filters.get("fullName");
+                String pattern;
+                if (raw.trim().isEmpty() && !raw.isEmpty()) {
+                    pattern = "%" + raw + "%";
+                    predicateList.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("fullName")), pattern));
+                } else {
+                    String norm = raw.trim().toLowerCase();
+                    if (!norm.isEmpty()) {
+                        pattern = "%" + norm + "%";
+                        predicateList.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("fullName")), pattern));
+                    }
+                }
             }
 
-            if (hasText(filters.get("type"))) {
+            if (hasNonBlank(filters.get("type"))) {
                 try {
-                    OrganizationType type = OrganizationType.valueOf(filters.get("type"));
+                    OrganizationType type = OrganizationType.valueOf(filters.get("type").trim());
                     predicateList.add(criteriaBuilder.equal(root.get("type"), type));
                 } catch (IllegalArgumentException ex) {
                     return criteriaBuilder.disjunction();
                 }
             }
 
-            if (hasText(filters.get("annualTurnoverMin"))) {
+            if (hasNonBlank(filters.get("annualTurnoverMin"))) {
                 try {
-                    long min = Long.parseLong(filters.get("annualTurnoverMin"));
+                    long min = Long.parseLong(filters.get("annualTurnoverMin").trim());
                     predicateList.add(criteriaBuilder.ge(root.get("annualTurnover"), min));
                 } catch (NumberFormatException ex) {
                     return criteriaBuilder.disjunction();
                 }
             }
 
-            if (hasText(filters.get("annualTurnoverMax"))) {
+            if (hasNonBlank(filters.get("annualTurnoverMax"))) {
                 try {
-                    long max = Long.parseLong(filters.get("annualTurnoverMax"));
+                    long max = Long.parseLong(filters.get("annualTurnoverMax").trim());
                     predicateList.add(criteriaBuilder.le(root.get("annualTurnover"), max));
                 } catch (NumberFormatException ex) {
                     return criteriaBuilder.disjunction();
                 }
             }
 
-            if (hasText(filters.get("employeesCountMin"))) {
+            if (hasNonBlank(filters.get("employeesCountMin"))) {
                 try {
-                    int min = Integer.parseInt(filters.get("employeesCountMin"));
+                    int min = Integer.parseInt(filters.get("employeesCountMin").trim());
                     predicateList.add(criteriaBuilder.ge(root.get("employeesCount"), min));
                 } catch (NumberFormatException ex) {
                     return criteriaBuilder.disjunction();
                 }
             }
 
-            if (hasText(filters.get("employeesCountMax"))) {
+            if (hasNonBlank(filters.get("employeesCountMax"))) {
                 try {
-                    int max = Integer.parseInt(filters.get("employeesCountMax"));
+                    int max = Integer.parseInt(filters.get("employeesCountMax").trim());
                     predicateList.add(criteriaBuilder.le(root.get("employeesCount"), max));
                 } catch (NumberFormatException ex) {
                     return criteriaBuilder.disjunction();
                 }
             }
 
-            if (hasText(filters.get("coordinatesXMin"))) {
+            if (hasNonBlank(filters.get("coordinatesXMin"))) {
                 try {
-                    double min = Double.parseDouble(filters.get("coordinatesXMin"));
+                    double min = Double.parseDouble(filters.get("coordinatesXMin").trim());
                     predicateList.add(criteriaBuilder.ge(root.get("coordinates").get("x"), min));
                 } catch (NumberFormatException ex) {
                     return criteriaBuilder.disjunction();
                 }
             }
 
-            if (hasText(filters.get("coordinatesXMax"))) {
+            if (hasNonBlank(filters.get("coordinatesXMax"))) {
                 try {
-                    double max = Double.parseDouble(filters.get("coordinatesXMax"));
+                    double max = Double.parseDouble(filters.get("coordinatesXMax").trim());
                     predicateList.add(criteriaBuilder.le(root.get("coordinates").get("x"), max));
                 } catch (NumberFormatException ex) {
                     return criteriaBuilder.disjunction();
                 }
             }
 
-            if (hasText(filters.get("coordinatesYMin"))) {
+            if (hasNonBlank(filters.get("coordinatesYMin"))) {
                 try {
-                    double min = Double.parseDouble(filters.get("coordinatesYMin"));
+                    double min = Double.parseDouble(filters.get("coordinatesYMin").trim());
                     predicateList.add(criteriaBuilder.ge(root.get("coordinates").get("y"), min));
                 } catch (NumberFormatException ex) {
                     return criteriaBuilder.disjunction();
                 }
             }
 
-            if (hasText(filters.get("coordinatesYMax"))) {
+            if (hasNonBlank(filters.get("coordinatesYMax"))) {
                 try {
-                    double max = Double.parseDouble(filters.get("coordinatesYMax"));
+                    double max = Double.parseDouble(filters.get("coordinatesYMax").trim());
                     predicateList.add(criteriaBuilder.le(root.get("coordinates").get("y"), max));
                 } catch (NumberFormatException ex) {
                     return criteriaBuilder.disjunction();
                 }
             }
 
-            if (hasText(filters.get("zipCode"))) {
+            if (hasNonBlank(filters.get("zipCode"))) {
                 Join<Organization, Address> addressJoin = root.join("officialAddress", JoinType.LEFT);
-                predicateList.add(criteriaBuilder.equal(addressJoin.get("zipCode"), filters.get("zipCode")));
+                predicateList.add(criteriaBuilder.equal(addressJoin.get("zipCode"), filters.get("zipCode").trim()));
             }
 
-            if (hasText(filters.get("townName"))) {
+            if (filters.get("townName") != null) {
+                String raw = filters.get("townName");
+                String pattern;
                 Join<Organization, Address> addressJoin = root.join("officialAddress", JoinType.LEFT);
                 Join<Address, Location> townJoin = addressJoin.join("town", JoinType.LEFT);
-                predicateList.add(criteriaBuilder.like(criteriaBuilder.lower(townJoin.get("name")), "%" + filters.get("townName").toLowerCase() + "%"));
+
+                if (raw.trim().isEmpty() && !raw.isEmpty()) {
+                    pattern = "%" + raw + "%";
+                    predicateList.add(criteriaBuilder.like(criteriaBuilder.lower(townJoin.get("name")), pattern));
+                } else {
+                    String norm = raw.trim().toLowerCase();
+                    if (!norm.isEmpty()) {
+                        pattern = "%" + norm + "%";
+                        predicateList.add(criteriaBuilder.like(criteriaBuilder.lower(townJoin.get("name")), pattern));
+                    }
+                }
             }
 
-            if(predicateList.isEmpty()){
+            if (predicateList.isEmpty()) {
                 return criteriaBuilder.conjunction();
             }
 
@@ -164,7 +194,7 @@ public class OrganizationSpecification {
         };
     }
 
-    private static boolean hasText(String s){
+    private static boolean hasNonBlank(String s) {
         return s != null && !s.isBlank();
     }
 }

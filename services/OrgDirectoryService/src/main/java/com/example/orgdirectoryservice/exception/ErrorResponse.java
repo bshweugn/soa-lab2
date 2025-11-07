@@ -1,4 +1,4 @@
-package com.example.organizationservice.exception;
+package com.example.orgdirectoryservice.exception;
 
 import java.util.List;
 
@@ -24,5 +24,6 @@ public class ErrorResponse {
 
     public List<String> getDetails() { return details; }
     public void setDetails(List<String> details) { this.details = details; }
+
 
 }

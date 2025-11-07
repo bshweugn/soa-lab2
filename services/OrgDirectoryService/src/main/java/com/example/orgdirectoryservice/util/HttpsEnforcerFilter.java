@@ -1,4 +1,4 @@
-package com.example.orgdirectoryservice.config;
+package com.example.orgdirectoryservice.util;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package com.example.organizationservice.exception;
+package com.example.orgdirectoryservice.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +61,7 @@ public class GlobalExceptionHandler {
         ErrorResponse er = new ErrorResponse(422, ex.getMessage(), List.of(ex.getMessage()));
         return new ResponseEntity<>(er, HttpStatus.UNPROCESSABLE_ENTITY);
     }
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> fallback(Exception ex) {

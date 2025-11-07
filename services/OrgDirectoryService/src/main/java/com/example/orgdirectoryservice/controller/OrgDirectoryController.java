@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,14 +22,14 @@ public class OrgDirectoryController {
     private final OrgDirectoryService orgDirectoryService;
 
     @PostMapping("/find-by/type")
-    public ResponseEntity<List<OrganizationDto>> findByType(@RequestBody TypeDto typeDto){
+    public ResponseEntity<List<OrganizationDto>> findByType(@Valid @RequestBody TypeDto typeDto){
         List<OrganizationDto> organizations = orgDirectoryService.findByType(typeDto);
         return ResponseEntity.ok(organizations);
     }
 
     @PostMapping("/find-by/min-and-max-turnover")
     public ResponseEntity<List<OrganizationDto>> findByTurnoverRange(
-            @RequestBody MinMaxTurnoverDto minMaxTurnoverDto){
+            @Valid @RequestBody MinMaxTurnoverDto minMaxTurnoverDto){
         List<OrganizationDto> organizations = orgDirectoryService.findByTurnover(minMaxTurnoverDto);
         return ResponseEntity.ok(organizations);
     }
