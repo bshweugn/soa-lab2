@@ -38,7 +38,6 @@ public class OrganizationClient {
     @PostConstruct
     public void initClient() {
         try {
-            // TRUST ALL (для dev: если у вас самоподписанный сертификат)
             TrustManager[] trustAllCerts = new TrustManager[]{
                     new X509TrustManager() {
                         public void checkClientTrusted(X509Certificate[] chain, String authType) { }
@@ -52,7 +51,7 @@ public class OrganizationClient {
 
             httpClient = new OkHttpClient.Builder()
                     .sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0])
-                    .hostnameVerifier((hostname, session) -> true) // доверяет любому hostname (dev only)
+                    .hostnameVerifier((hostname, session) -> true)
                     .connectTimeout(CONNECT_TIMEOUT)
                     .readTimeout(READ_TIMEOUT)
                     .callTimeout(READ_TIMEOUT.plusSeconds(5))
