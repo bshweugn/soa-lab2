@@ -1,9 +1,9 @@
 package com.example.organizationservice.spec;
 
-import com.example.organizationservice.model.Address;
-import com.example.organizationservice.model.Location;
-import com.example.organizationservice.model.Organization;
-import com.example.organizationservice.model.OrganizationType;
+import com.example.common.model.Organization;
+import com.example.common.model.Address;
+import com.example.common.model.Location;
+import com.example.common.model.OrganizationType;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;

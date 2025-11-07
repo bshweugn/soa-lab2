@@ -1,4 +1,4 @@
-package com.example.orgdirectoryservice.dto;
+package com.example.common.dto;
 
 import lombok.Data;
 

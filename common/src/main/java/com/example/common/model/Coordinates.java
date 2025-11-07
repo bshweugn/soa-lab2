@@ -1,4 +1,4 @@
-package com.example.organizationservice.model;
+package com.example.common.model;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

@@ -1,0 +1,11 @@
+com/example/common/dto/OrganizationDto.class
+com/example/common/model/Coordinates.class
+com/example/common/model/Organization.class
+com/example/common/dto/MinMaxTurnoverDto.class
+com/example/common/dto/TypeDto.class
+com/example/common/model/Location.class
+com/example/common/dto/SearchRequest.class
+com/example/common/model/Address.class
+com/example/common/model/OrganizationType.class
+com/example/common/dto/PagedResponse.class
+com/example/common/dto/PagedResponse$PagedResponseBuilder.class

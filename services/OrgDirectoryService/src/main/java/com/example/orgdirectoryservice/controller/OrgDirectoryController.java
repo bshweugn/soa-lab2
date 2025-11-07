@@ -1,8 +1,8 @@
 package com.example.orgdirectoryservice.controller;
 
-import com.example.orgdirectoryservice.dto.MinMaxTurnoverDto;
-import com.example.orgdirectoryservice.dto.OrganizationDto;
-import com.example.orgdirectoryservice.dto.TypeDto;
+import com.example.common.dto.MinMaxTurnoverDto;
+import com.example.common.dto.OrganizationDto;
+import com.example.common.dto.TypeDto;
 import com.example.orgdirectoryservice.service.OrgDirectoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

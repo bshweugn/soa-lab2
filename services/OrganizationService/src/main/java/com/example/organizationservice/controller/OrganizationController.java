@@ -1,9 +1,9 @@
 package com.example.organizationservice.controller;
 
-import com.example.organizationservice.dto.OrganizationDto;
-import com.example.organizationservice.dto.PagedResponse;
-import com.example.organizationservice.dto.SearchRequest;
-import com.example.organizationservice.model.Organization;
+import com.example.common.dto.OrganizationDto;
+import com.example.common.dto.PagedResponse;
+import com.example.common.dto.SearchRequest;
+import com.example.common.model.Organization;
 import com.example.organizationservice.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

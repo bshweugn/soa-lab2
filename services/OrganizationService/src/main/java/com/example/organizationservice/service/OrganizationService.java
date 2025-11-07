@@ -1,6 +1,6 @@
 package com.example.organizationservice.service;
 
-import com.example.organizationservice.model.Organization;
+import com.example.common.model.Organization;
 import com.example.organizationservice.repository.OrganizationRepository;
 import com.example.organizationservice.spec.OrganizationSpecification;
 import jakarta.transaction.Transactional;

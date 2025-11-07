@@ -1,9 +1,9 @@
 package com.example.orgdirectoryservice.service;
 
 import com.example.orgdirectoryservice.config.OrganizationClient;
-import com.example.orgdirectoryservice.dto.MinMaxTurnoverDto;
-import com.example.orgdirectoryservice.dto.OrganizationDto;
-import com.example.orgdirectoryservice.dto.TypeDto;
+import com.example.common.dto.MinMaxTurnoverDto;
+import com.example.common.dto.OrganizationDto;
+import com.example.common.dto.TypeDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

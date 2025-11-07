@@ -1,6 +1,6 @@
 package com.example.orgdirectoryservice.config;
 
-import com.example.orgdirectoryservice.dto.OrganizationDto;
+import com.example.common.dto.OrganizationDto;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;

@@ -1,9 +1,9 @@
-package com.example.organizationservice.dto;
+package com.example.common.dto;
 
-import com.example.organizationservice.model.Address;
-import com.example.organizationservice.model.Coordinates;
-import com.example.organizationservice.model.Organization;
-import com.example.organizationservice.model.OrganizationType;
+import com.example.common.model.Address;
+import com.example.common.model.Coordinates;
+import com.example.common.model.Organization;
+import com.example.common.model.OrganizationType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package com.example.organizationservice.dto;
+package com.example.common.dto;
 
 
 import lombok.AllArgsConstructor;

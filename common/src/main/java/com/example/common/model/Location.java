@@ -1,4 +1,4 @@
-package com.example.organizationservice.model;
+package com.example.common.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

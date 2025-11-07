@@ -1,0 +1,10 @@
+/home/hokure/Рабочий стол/ИТМО/SOA/soa-lab2/common/src/main/java/com/example/common/dto/MinMaxTurnoverDto.java
+/home/hokure/Рабочий стол/ИТМО/SOA/soa-lab2/common/src/main/java/com/example/common/dto/OrganizationDto.java
+/home/hokure/Рабочий стол/ИТМО/SOA/soa-lab2/common/src/main/java/com/example/common/dto/PagedResponse.java
+/home/hokure/Рабочий стол/ИТМО/SOA/soa-lab2/common/src/main/java/com/example/common/dto/SearchRequest.java
+/home/hokure/Рабочий стол/ИТМО/SOA/soa-lab2/common/src/main/java/com/example/common/dto/TypeDto.java
+/home/hokure/Рабочий стол/ИТМО/SOA/soa-lab2/common/src/main/java/com/example/common/model/Address.java
+/home/hokure/Рабочий стол/ИТМО/SOA/soa-lab2/common/src/main/java/com/example/common/model/Coordinates.java
+/home/hokure/Рабочий стол/ИТМО/SOA/soa-lab2/common/src/main/java/com/example/common/model/Location.java
+/home/hokure/Рабочий стол/ИТМО/SOA/soa-lab2/common/src/main/java/com/example/common/model/Organization.java
+/home/hokure/Рабочий стол/ИТМО/SOA/soa-lab2/common/src/main/java/com/example/common/model/OrganizationType.java
